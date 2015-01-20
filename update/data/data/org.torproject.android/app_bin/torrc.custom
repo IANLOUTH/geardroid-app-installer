@@ -1,0 +1,13 @@
+ControlPortWriteToFile /data/data/org.torproject.android/app_bin/control.txt
+RunAsDaemon 1
+AvoidDiskWrites 1
+SOCKSPort auto
+SafeSocks 0
+TestSocks 0
+WarnUnsafeSocks 1
+TransPort auto
+DNSPort auto
+VirtualAddrNetwork 10.192.0.0/10
+AutomapHostsOnResolve 1
+CircuitStreamTimeout 60
+

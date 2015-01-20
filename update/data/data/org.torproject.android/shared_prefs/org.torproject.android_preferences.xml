@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="pref_start_boot" value="true" />
+    <boolean name="pref_disable_network" value="true" />
+    <boolean name="wizardscreen1" value="false" />
+    <boolean name="pref_bridges_enabled" value="false" />
+    <boolean name="pref_or" value="false" />
+    <boolean name="pref_transparent_tethering" value="false" />
+    <string name="pref_socks">9050</string>
+    <string name="BINARY_TOR_VERSION_INSTALLED">0.2.5.10-openssl1.0.1i-nonPIE-polipofix</string>
+    <string name="pref_or_nickname">OrbotRelay</string>
+    <boolean name="has_root" value="true" />
+    <string name="pref_transport">9040</string>
+    <string name="pref_default_locale">en</string>
+    <string name="pref_reachable_addresses_ports">*:80,*:443</string>
+    <string name="pref_or_port">9001</string>
+    <string name="pref_bridges_list"></string>
+    <string name="radiobutton">rb0</string>
+    <boolean name="pref_persistent_notifications" value="true" />
+    <boolean name="pref_use_sys_iptables" value="false" />
+    <string name="pref_custom_torrc"></string>
+    <boolean name="pref_transparent" value="true" />
+    <boolean name="pref_reachable_addresses" value="false" />
+    <boolean name="pref_enable_logging" value="false" />
+    <boolean name="pref_show_conflict" value="false" />
+    <string name="pref_dnsport">5400</string>
+    <boolean name="pref_expanded_notifications" value="false" />
+    <boolean name="pref_transproxy_refresh" value="false" />
+    <boolean name="show_wizard" value="false" />
+    <boolean name="pref_strict_nodes" value="false" />
+    <boolean name="pref_transparent_all" value="true" />
+</map>

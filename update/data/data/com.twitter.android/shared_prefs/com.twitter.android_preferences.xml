@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <long name="log_interval" value="60000" />
+    <int name="antispam_connect_user_count" value="5" />
+    <boolean name="inline_follow_enabled" value="true" />
+    <int name="antispam_query_frequency" value="10800" />
+    <float name="status_linger_maximum_threshold" value="30.0" />
+    <int name="typeahead_max_topics" value="3" />
+    <int name="linger_user_fraction" value="1000" />
+    <int name="app_usage_monitor_state" value="1" />
+    <int name="pb_enabled" value="10000" />
+    <long name="find_friends_interval" value="15552000000" />
+    <long name="become_inactive_timestamp" value="1421705396576" />
+    <long name="experiment_timestamp_0" value="1421705378505" />
+    <long name="typeahead_users_ttl" value="172800000" />
+    <boolean name="alerts_activation_enabled" value="true" />
+    <long name="feature_timestamp_0" value="1421705377656" />
+    <int name="typeahead_users_size" value="1000" />
+    <long name="typeahead_throttle" value="250" />
+    <int name="typeahead_max_recent" value="5" />
+    <int name="log_error" value="10" />
+    <string name="proxy_host">127.0.0.1</string>
+    <long name="log_last_flush_request" value="1421705373451" />
+    <string name="client_uuid">79eeb8ad-861b-41e2-b9d5-ee390eef47dd</string>
+    <int name="typeahead_max_user" value="10" />
+    <long name="app_usage_monitor_start_ts" value="1421705373442" />
+    <string name="web_view_url_whitelist">https://ads.twitter.com/cards,https://analytics.twitter.com,https://cards.twitter.com/cards,https://cards-staging.twitter.com/cards,https://cards-beta.twitter.com/cards,https://cards-voting.twitter.com/votes,https://caps.twitter.com/v1/api,https://caps-staging.twitter.com/v1/api,</string>
+    <string name="proxy_port">8118</string>
+    <long name="app_usage_monitor_update_ts" value="1421705396584" />
+    <boolean name="device_follow_button_enabled" value="true" />
+    <boolean name="log_enabled" value="true" />
+    <int name="log_failure_cnt" value="0" />
+    <boolean name="proxy_enabled" value="true" />
+    <boolean name="lifeline_alerts_enabled" value="true" />
+    <boolean name="inline_follow_user_fetch_enabled" value="true" />
+    <int name="typeahead_max_compose" value="20" />
+    <float name="status_linger_minimum_threshold" value="0.5" />
+    <int name="antispam_connect_tweet_count" value="15" />
+</map>
