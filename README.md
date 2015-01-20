@@ -5,12 +5,14 @@
 
 Tested on a Nexus 7 (flo) running Android AOSP 5.0.2r1.
 
+Packages are verified against their GPG signatures where available, else with sha256 checksums.  APKs can optionally be verified with jarsigner.  Resulting update.zip is signed with test certificates using signapk.
+
 #### Apps
 * SuperSU 2.45
 * ChatSecure v14.0.9
 * F-Droid 0.78
 * GNU Privacy Guard 0.3
-* Orbot v14.1.4
+* Orbot v14.1.4 (LollopopPIE)
 * Orweb 0.7
 * Bitmaask 0.9.0
 * i2p 0.9.17.1
@@ -19,7 +21,7 @@ Tested on a Nexus 7 (flo) running Android AOSP 5.0.2r1.
 
 #### Requirements
 * Nexus 7 2013 (WiFi) [Flo]
-* Android Lollipop (for included Orbot)
+* Android Lollipop (for included Orbot, otherwise earlier versions are fine)
 * Fastboot & ADB
 * CWM Recovery (installable from script).
 * sha256sum
