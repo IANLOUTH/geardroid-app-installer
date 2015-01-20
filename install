@@ -30,7 +30,7 @@ CWMURL="http://download2.clockworkmod.com/recoveries/recovery-clockwork-6.0.4.7-
 echo "Installing Geardroid requires ClockworkMod Recovery."
 
 copy_geardroid() {
-	read -p "Please enable USB debugging, connect Nexus 7 then press [enter]..."
+	read -p "Please enable USB debugging, connect Nexus 7 then press [enter]..." 2>/dev/null
 	adb push update-SIGNED.zip /sdcard/
 }
 
@@ -42,7 +42,7 @@ install_cwm() {
 	sleep 5s
 	echo "Installing recovery image..."
 	fastboot flash recovery cwm.img
-	echo "Please reboot into bootloader by holding VOLUME DOWN and POWER"
+	echo "\n\rPlease reboot into bootloader by holding VOLUME DOWN and POWER"
 	echo "Then select Recovery from the menu to continue"
 }
 
@@ -63,7 +63,7 @@ done
 
 
 
-echo -e "\n\rFrom the recovery menu: \n->select install zip \n-> choose zip from /sdcard \n-> update-SIGNED.zip\n\r"
-echo "After the script finishes reboot your Nexus 7 and you're done!"
-echo "Remember to configure Tor and/or Bitmask as soon as WiFi is enabled."
-echo -e "\n\rAll complaints to dani@gearbench.uk, @DaniGearbench or /dev/null\n\r"
+echo "\n\rFrom the recovery menu: \n->select install zip \n-> choose zip from /sdcard \n-> update-SIGNED.zip\n\r"
+echo "After the script finishes, reboot your Nexus 7 and you're done!"
+echo "Remember to configure Tor, i2p and/or Bitmask before exposing yourself to the internets."
+echo "\n\rAll complaints to dani@gearbench.uk, @DaniGearbench or /dev/null\n\r"
