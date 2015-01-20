@@ -1,0 +1,198 @@
+#!/bin/bash
+
+# Geardroid - An Guardian Project App Installer
+# Copyright (c) 2015  Dani Gearbench
+#
+#
+# Requires: sha256sum, curl, GnuPG/GPG, Java Runtime
+#	    fastboot, adb.
+#
+# Web: http://gearbench.uk   Mail: dani@gearbench.uk
+# Twitter: @DaniGearbench    Complaints: /dev/null
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+VERFAIL=0
+##### URLs #####
+URLsupersu="http://download.chainfire.eu/695/SuperSU/UPDATE-SuperSU-v2.45.zip?retrieve_file=1"
+SHAsupersu="f08a747bf4a8e8abb4ae669f1339000d3a1893de7f1e3a96a71f29757e5f98a9  supersu.zip"
+
+URLchatsecure="https://guardianproject.info/releases/ChatSecure-v14.0.9.apk"
+URLchatsecuresig="https://guardianproject.info/releases/ChatSecure-v14.0.9.apk.asc"
+
+URLorbot="https://guardianproject.info/releases/Orbot-v14.1.4-LollipopPIE.apk"
+URLorbotsig="https://guardianproject.info/releases/Orbot-v14.1.4-LollipopPIE.apk.asc"
+
+URLorweb="https://guardianproject.info/releases/Orweb-release-0.7.apk"
+URLorwebsig="https://guardianproject.info/releases/Orweb-release-0.7.apk.asc"
+
+URLgnupg="https://guardianproject.info/releases/GnuPrivacyGuard-release-0.3.apk"
+URLgnupgsig="https://guardianproject.info/releases/GnuPrivacyGuard-release-0.3.apk.sig"
+
+URLbitmask="https://dl.bitmask.net/client/android/Bitmask-Android-0.9.0.apk"
+SHAbitmask="152f468da7b083c5069e0236f4078220fab3b69e51a55192558d3898c2c4bbd2  Bitmask-Android-0.9.0.apk"
+
+URLi2p="https://download.i2p2.de/android/releases/0.9.17.1/i2p.apk"
+SHAi2p="6d2b033dd0eb15d3e93b67e8fd6f92530bfb67ff7827fa25725f219f81ffae5c  i2p.apk"
+## SHAi2p="6d2b033dd0eb15d3e93b67e8fd6f92530bfb67ff7827fa25725f219ff1ffae5c  i2p.apk"
+
+URLfdroid="https://f-droid.org/repo/org.fdroid.fdroid_780.apk"
+URLfdroidsig="https://f-droid.org/repo/org.fdroid.fdroid_780.apk.asc"
+
+SHAterm="f02282336ba7b900753cf1346be10cfa7370d4a1595b1dc3af490300e0fce98b  term.apk"
+
+# update/data/app/term.apk
+#
+URLS="$URLchatsecure \
+$URLchatsecuresig \
+$URLorbot \
+$URLorbotsig \
+$URLorweb \
+$URLorwebsig \
+$URLgnupg \
+$URLgnupgsig \
+$URLbitmask \
+$URLi2p \
+$URLfdroid \
+$URLfdroidsig";
+
+die() { echo "$@" 1>&2; exit 1; }
+################
+
+echo -e "\n\r-[ Building Geardroid ]-\n\r"
+mkdir output 2>/dev/null; cd output
+mkdir -p data/app data/data supersu META-INF/com/google/android 2>/dev/null
+## cp -R ../update/META-INF ./
+echo "* Fetching SuperSU 2.45"
+curl -s -L -o supersu/supersu.zip $URLsupersu
+
+
+echo "* Fetching Applications"
+cd data/app
+for url in $URLS
+do
+	curl -s -L -O $url
+done
+
+cp ../../../update/data/app/term.apk ./
+
+echo "* Verifying binaries..."
+cd ../../supersu
+## sha256sum supersu.zip
+echo $SHAsupersu | sha256sum --check --status -
+succ=$?;
+if [[ $succ -eq 1 ]]; then
+	# die "SuperSU SHA256 mismatch"
+	echo "	[FAIL] SuperSu"
+	VERFAIL=1
+else
+	echo "	[OK] SuperSu"
+fi
+
+cd ../data/app
+
+echo $SHAi2p | sha256sum --check --status -
+# succ=$?
+if [[ $? -eq 1 ]];
+then
+        echo "	[FAIL] i2p"
+	VERFAIL=1
+else
+        echo "	[OK] i2p"
+fi
+
+echo $SHAbitmask | sha256sum --check --status -
+# succ=$?
+if [[ $? -eq 1 ]]; then
+#        die "Bitmask SHA256 Mismatch"
+        echo "	[FAIL] Bitmask"
+        VERFAIL=1
+
+else
+        echo "	[OK] Bitmask"
+fi
+
+echo $SHAterm | sha256sum --check --status -
+# succ=$?
+if [[ $? -eq 1 ]]; then
+#        die "Terminal SHA256 Mismatch"
+        echo "	[FAIL] Terminal"
+        VERFAIL=1
+
+else
+        echo "	[OK] Terminal"
+fi
+
+
+gpg -q --recv-keys 0x41e7044e1dba2e89 2>/dev/null
+gpg -q --recv-keys 0x69B37AA9 2>/dev/null
+gpg -q --recv-keys 374BBE81 2>/dev/null
+gpg -q --recv-keys 81079F68 2>/dev/null
+
+verify_signature() {
+    local file=$1 apk=$2 fprint=$3 out=
+    if out=$(gpg --status-fd 1 --verify "$file" 2>/dev/null) &&
+       echo "$out" | grep -qs "^\[GNUPG:\] VALIDSIG $fprint " &&
+       echo "$out" | grep -qs "^\[GNUPG:\] TRUST_ULTIMATE\$"; then
+        echo "  [FAIL] $apk"
+        VERFAIL=1
+        return 0
+    else
+        ## echo "$out" >&2
+	echo "	[OK] $apk"
+	## echo "$out" | grep "^\[GNUPG:\] VALIDSIG $fprint "
+        return 1
+    fi
+}
+
+test_apks() {
+	for f in *.apk
+	do
+		echo -n "	[Testing] $f... "
+		jarsigner -verify $f | grep verified
+	done
+}
+
+verify_signature org.fdroid.fdroid_780.apk.asc org.fdroid.fdroid_780.apk 802A9799016112346E1FEFF47A029E54DD5DCE7A # 37D2C98789D8311948394E3E41E7044E1DBA2E89
+verify_signature Orbot-v14.1.4-LollipopPIE.apk.asc Orbot-v14.1.4-LollipopPIE.apk BBE20FD6DA48A3DD4CC7DF41A801183E69B37AA9
+verify_signature Orweb-release-0.7.apk.asc Orweb-release-0.7.apk BBE20FD6DA48A3DD4CC7DF41A801183E69B37AA9
+verify_signature ChatSecure-v14.0.9.apk.asc ChatSecure-v14.0.9.apk BBE20FD6DA48A3DD4CC7DF41A801183E69B37AA9
+verify_signature GnuPrivacyGuard-release-0.3.apk.sig GnuPrivacyGuard-release-0.3.apk 802A9799016112346E1FEFF47A029E54DD5DCE7A # 37D2C98789D8311948394E3E41E7044E1DBA2E89
+
+if [[ $VERFAIL -eq 1 ]]; then
+	echo "--------------------------------------------"
+	die "Signature verification failed :-("
+fi
+
+echo -e "\n\rSignature verification successful.\n\r"
+rm *.asc *.sig 2>/dev/null
+
+while true; do
+    read -p "Would you like to test APKs? (y/n) " yn
+    case $yn in
+        [Yy]* ) test_apks; break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+cd ../..
+
+cp ../update/META-INF/com/google/android/update-binary ./META-INF/com/google/android/update-binary 2>/dev/null
+cp ../update/META-INF/com/google/android/updater-script ./META-INF/com/google/android/updater-script 2>/dev/null
+touch README
+zip -r ../update.zip ./
+cd ..
+java -jar Tools/signapk.jar Tools/testkey.x509.pem Tools/testkey.pk8 update.zip update-SIGNED.zip

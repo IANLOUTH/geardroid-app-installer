@@ -1,0 +1,69 @@
+#!/bin/sh
+
+# Geardroid - An Guardian Project App Installer
+# Copyright (c) 2015  Dani Gearbench
+#
+#
+# Requires: sha256sum, curl, GnuPG/GPG, Java Runtime
+#           fastboot, adb.
+#
+# Web: http://gearbench.uk   Mail: dani@gearbench.uk
+# Twitter: @DaniGearbench    Complaints: /dev/null
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+CWMTOUCHURL="http://download2.clockworkmod.com/recoveries/recovery-clockwork-touch-6.0.4.7-flo.img"
+CWMURL="http://download2.clockworkmod.com/recoveries/recovery-clockwork-6.0.4.7-flo.img"
+
+echo "Installing Geardroid requires ClockworkMod Recovery."
+
+copy_geardroid() {
+	read -p "Please enable USB debugging, connect Nexus 7 then press [enter]..."
+	adb push update-SIGNED.zip /sdcard/
+}
+
+install_cwm() {
+	copy_geardroid
+	curl -s -L -o cwm.img $CWMTOUCHURL
+	echo "Rebooting into bootloader..."
+	adb reboot bootloader
+	sleep 5s
+	echo "Installing recovery image..."
+	fastboot flash recovery cwm.img
+	echo "Please reboot into bootloader by holding VOLUME DOWN and POWER"
+	echo "Then select Recovery from the menu to continue"
+}
+
+install_geardroid() {
+		copy_geardroid;
+		echo "Rebooting into recovery..."
+		adb reboot recovery
+}
+
+while true; do
+    read -p "Would you like to install CWM Recovery? (y/n) " yn
+    case $yn in
+        [Yy]* ) install_cwm; break;;
+        [Nn]* ) install_geardroid; break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
+
+
+
+echo -e "\n\rFrom the recovery menu: \n->select install zip \n-> choose zip from /sdcard \n-> update-SIGNED.zip\n\r"
+echo "After the script finishes reboot your Nexus 7 and you're done!"
+echo "Remember to configure Tor and/or Bitmask as soon as WiFi is enabled."
+echo -e "\n\rAll complaints to dani@gearbench.uk, @DaniGearbench or /dev/null\n\r"
