@@ -27,4 +27,4 @@
 rm -rf ./output
 rm update-SIGNED.zip
 rm update.zip
-rm cwm.img
+rm cwm.img 2>/dev/null

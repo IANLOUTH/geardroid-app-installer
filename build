@@ -28,6 +28,9 @@ VERFAIL=0
 ##### URLs #####
 URLsupersu="http://download.chainfire.eu/695/SuperSU/UPDATE-SuperSU-v2.45.zip?retrieve_file=1"
 SHAsupersu="f08a747bf4a8e8abb4ae669f1339000d3a1893de7f1e3a96a71f29757e5f98a9  supersu.zip"
+# URLsupersu="http://download.chainfire.eu/641/SuperSU/UPDATE-SuperSU-v2.40.zip?retrieve_file=1"
+# SHAsupersu="1155438921edd2a0c880a1bb4064b8304e05516bea7939cd6a32fa0ec603d396  supersu.zip"
+
 
 URLchatsecure="https://guardianproject.info/releases/ChatSecure-v14.0.9.apk"
 URLchatsecuresig="https://guardianproject.info/releases/ChatSecure-v14.0.9.apk.asc"
@@ -75,16 +78,18 @@ echo -e "\n\r-[ Building Geardroid ]-\n\r"
 mkdir output 2>/dev/null; cd output
 mkdir -p data/app data/data supersu META-INF/com/google/android 2>/dev/null
 ## cp -R ../update/META-INF ./
+
 echo "* Fetching SuperSU 2.45"
 curl -s -L -o supersu/supersu.zip $URLsupersu
 
-
 echo "* Fetching Applications"
 cd data/app
-for url in $URLS
-do
-	curl -s -L -O $url
-done
+if [ ! -f ./i2p.apk ]; then
+	for url in $URLS
+	do
+		curl -s -L -O $url
+	done
+fi
 
 cp ../../../update/data/app/term.apk ./
 
