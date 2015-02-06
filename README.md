@@ -1,6 +1,9 @@
 # Geardroid
 ## An installer for Guardian Project Apps
 
+06/02/2015: 
+update-SIGNED.zip available in [releases] (https://github.com/gearbench/geardroid-app-installer/releases) ([direct link] (https://github.com/gearbench/geardroid-app-installer/releases/download/v0.1-beta/update-SIGNED.zip))
+
 *I put this together to save some time after flashing my Nexus 7. In the future this will be better written and will also include AOSP image releases with kernel and system improvements.*
 
 Tested on a Nexus 7 (flo) running Android AOSP 5.0.2r1.
