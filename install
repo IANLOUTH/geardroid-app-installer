@@ -25,7 +25,8 @@
 CWMTOUCHURL="http://download2.clockworkmod.com/recoveries/recovery-clockwork-touch-6.0.4.7-flo.img"
 CWMURL="http://download2.clockworkmod.com/recoveries/recovery-clockwork-6.0.4.7-flo.img"
 
-echo "Installing Geardroid requires ClockworkMod Recovery."
+echo "Geardroid App Installer requires ClockworkMod Recovery."
+echo "This installer can download CWM for Nexus 7 2013 (wifi) [flo]"
 
 copy_geardroid() {
 	read -p "Please enable USB debugging, connect Nexus 7 then press [enter]..." 2>/dev/null
@@ -51,7 +52,7 @@ install_geardroid() {
 }
 
 while true; do
-    read -p "Would you like to install CWM Recovery? (y/n) " yn
+    read -p "Would you like to install CWM Recovery Flo? (y/n) " yn
     case $yn in
         [Yy]* ) install_cwm; break;;
         [Nn]* ) install_geardroid; break;;
