@@ -20,7 +20,7 @@ Please check [releases] (https://github.com/gearbench/geardroid-app-installer/re
 * ChatSecure v14.0.9
 * F-Droid 0.78
 * GNU Privacy Guard 0.3
-* Orbot v14.1.4 (LollopopPIE)
+* Orbot v14.1.4 (LollopopPIE or non-PIE for upto Kitkat)
 * Orweb 0.7
 * Bitmaask 0.9.0
 * i2p 0.9.17.1
