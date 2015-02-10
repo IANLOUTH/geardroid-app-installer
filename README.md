@@ -1,14 +1,19 @@
 # Geardroid
 ## An installer for Guardian Project Apps
 
+10/02/2015:
+Added update-kitkat-SIGNED.zip in releases
+Build now asks if building for Lollipop
+
 06/02/2015: 
 update-SIGNED.zip available in [releases] (https://github.com/gearbench/geardroid-app-installer/releases) ([direct link] (https://github.com/gearbench/geardroid-app-installer/releases/download/v0.1-beta/update-SIGNED.zip))
 
-*I put this together to save some time after flashing my Nexus 7. In the future this will be better written and will also include AOSP image releases with kernel and system improvements.*
 
 Tested on a Nexus 7 (flo) running Android AOSP 5.0.2r1.
 
 Packages are verified against their GPG signatures where available, else with sha256 checksums.  APKs can optionally be verified with jarsigner.  Resulting update.zip is signed with test certificates using signapk.
+
+Please check [releases] (https://github.com/gearbench/geardroid-app-installer/releases) for an installable ZIP file. Copy this file to the root of your device, reboot into recovery and install zip.
 
 #### Apps
 * SuperSU 2.45
@@ -23,14 +28,12 @@ Packages are verified against their GPG signatures where available, else with sh
 * Terminal Emulator for Android from @Jackpal
 
 #### Requirements
-* Nexus 7 2013 (WiFi) [Flo]
-* Android Lollipop (for included Orbot, otherwise earlier versions are fine)
 * Fastboot & ADB
-* CWM Recovery (installable from script).
+* CWM Recovery (installable from script for Flo).
 * sha256sum
-* curl
-* GnuPG/GPG
-* Java Runtime
+* curl 
+* GnuPG/GPG (verifying signed packages)
+* Java Runtime (for verifying Jar & signing zip)
 
 #### Usage
 ```bash
